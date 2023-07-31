@@ -1,0 +1,20 @@
+{
+  "extends": ["xo"],
+  "overrides": [
+    {
+      "files": ["**/*.ts"],
+      "extends": ["xo-typescript"]
+    },
+    {
+      "files": ["**/*.test.ts"],
+      "plugins": ["jest"],
+      "extends": ["plugin:jest/recommended", "plugin:jest/style"]
+    },
+    {
+      "files": ["*"],
+      "extends": ["prettier"]
+    }
+  ],
+  "ignorePatterns": ["build"],
+  "root": true
+}
