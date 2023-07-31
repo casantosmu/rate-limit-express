@@ -8,7 +8,11 @@
     {
       "files": ["**/*.test.ts"],
       "plugins": ["jest"],
-      "extends": ["plugin:jest/recommended", "plugin:jest/style"]
+      "extends": ["plugin:jest/recommended", "plugin:jest/style"],
+      "rules": {
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/consistent-type-assertions": "off"
+      }
     },
     {
       "files": ["*"],
