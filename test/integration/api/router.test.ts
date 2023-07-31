@@ -1,7 +1,7 @@
 import request from "../request";
 import { env } from "../../../src/configs/env";
 
-describe("GET /ping", () => {
+describe("GET /public", () => {
   it("responds with 200", async () => {
     const response = await request.get("/v1/public");
 
