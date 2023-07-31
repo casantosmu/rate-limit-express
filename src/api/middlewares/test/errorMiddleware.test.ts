@@ -1,5 +1,6 @@
 import { type Request, type Response } from "express";
 import { errorMiddleware } from "../errorMiddleware";
+import { UnauthorizedError } from "../../../core/error";
 
 const logger = {
   info: jest.fn(),
@@ -41,6 +42,27 @@ describe("errorMiddleware", () => {
       expect(res.json).toHaveBeenCalledWith({
         code: "internalServerError",
         message: "Something went wrong",
+      });
+    });
+  });
+
+  describe("When called with UnauthorizedError", () => {
+    test("Should call response status with '401'", () => {
+      const error = new UnauthorizedError("code", "message");
+
+      errorMiddleware(logger)(error, req, res, next);
+
+      expect(res.status).toHaveBeenCalledWith(401);
+    });
+
+    test("Should call response json with the error code and message", () => {
+      const error = new UnauthorizedError("code-123", "custom-message");
+
+      errorMiddleware(logger)(error, req, res, next);
+
+      expect(res.json).toHaveBeenCalledWith({
+        code: error.code,
+        message: error.message,
       });
     });
   });

@@ -45,5 +45,3 @@ export class Server {
       resolve();
     });
 }
-
-export default Server;
