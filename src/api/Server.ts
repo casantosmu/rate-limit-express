@@ -6,7 +6,7 @@ import {
 } from "http";
 import { type Logger } from "../lib/logger/types";
 
-type ServerConfigs = {
+type Configs = {
   port: number;
 };
 
@@ -15,7 +15,7 @@ export class Server {
 
   constructor(
     private readonly logger: Logger,
-    private readonly configs: ServerConfigs,
+    private readonly configs: Configs,
   ) {}
 
   readonly start = async (app: RequestListener) =>
