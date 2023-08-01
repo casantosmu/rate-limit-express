@@ -1,5 +1,5 @@
 import { type Request, type Response } from "express";
-import { type AuthRequest, type UuidAuthPayload } from "../../types";
+import { type UuidAuthRequest } from "../../types";
 import {
   ipRateLimitMiddleware,
   uuidRateLimitMiddleware,
@@ -14,7 +14,7 @@ const testCases = [
       auth: {
         uuid: "uuid",
       },
-    } as AuthRequest<UuidAuthPayload>,
+    } as UuidAuthRequest,
     key: "uuid",
   },
   {

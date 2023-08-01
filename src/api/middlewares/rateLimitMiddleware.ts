@@ -1,7 +1,7 @@
 import { type Response, type Request, type NextFunction } from "express";
 import { type RateLimiter } from "../../lib/rateLimit/type";
 import { InternalError, RateLimitError } from "../../core/error";
-import { type UuidAuthPayload, type AuthRequest } from "../types";
+import { type UuidAuthRequest } from "../types";
 
 const getResetTime = (msToExpire: number) => {
   const nextRequest = new Date();
@@ -43,7 +43,7 @@ export const ipRateLimitMiddleware = (rateLimiter: RateLimiter) =>
   });
 
 export const uuidRateLimitMiddleware = (rateLimiter: RateLimiter) =>
-  rateLimitMiddleware<AuthRequest<UuidAuthPayload>>(rateLimiter, {
+  rateLimitMiddleware<UuidAuthRequest>(rateLimiter, {
     getKey(req) {
       if (!req.auth) {
         throw new InternalError(
