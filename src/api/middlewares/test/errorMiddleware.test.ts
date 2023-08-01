@@ -48,7 +48,7 @@ describe("errorMiddleware", () => {
 
   describe("When called with UnauthorizedError", () => {
     test("Should call response status with '401'", () => {
-      const error = new UnauthorizedError("code", "message");
+      const error = new UnauthorizedError("message");
 
       errorMiddleware(logger)(error, req, res, next);
 
@@ -56,7 +56,7 @@ describe("errorMiddleware", () => {
     });
 
     test("Should call response json with the error code and message", () => {
-      const error = new UnauthorizedError("code-123", "custom-message");
+      const error = new UnauthorizedError("custom-message");
 
       errorMiddleware(logger)(error, req, res, next);
 
