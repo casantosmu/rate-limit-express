@@ -63,7 +63,6 @@ export class IoRedisRateLimiter implements RateLimiter {
 
     return {
       success: totalHits <= this.configs.limit,
-      totalHits,
       limitHits: this.configs.limit,
       msToExpire,
     };

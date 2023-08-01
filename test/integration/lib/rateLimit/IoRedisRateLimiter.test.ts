@@ -32,7 +32,6 @@ describe("IoRedisRateLimiter", () => {
         const keyValue = await ioRedisClient.client.get(`${namespace}:${id}`);
 
         expect(result.success).toBe(true);
-        expect(result.totalHits).toBe(1);
         expect(result.limitHits).toBe(limit);
         expect(result.msToExpire).toBe(windowMs);
         expect(keyValue).toBe("1");
@@ -63,7 +62,6 @@ describe("IoRedisRateLimiter", () => {
       const keyValue = await ioRedisClient.client.get(`${namespace}:${id}`);
 
       expect(result.success).toBe(true);
-      expect(result.totalHits).toBe(2);
       expect(result.msToExpire).toBeLessThan(windowMs);
       expect(keyValue).toBe("2");
     });
