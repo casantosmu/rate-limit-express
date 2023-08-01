@@ -8,8 +8,20 @@ export class AppError extends Error {
   }
 }
 
+export class RateLimitError extends AppError {
+  constructor(message: string, cause?: Error) {
+    super("rateLimitError", message, cause);
+  }
+}
+
 export class UnauthorizedError extends AppError {
   constructor(message: string, cause?: Error) {
     super("unauthorizedError", message, cause);
+  }
+}
+
+export class InternalError extends AppError {
+  constructor(message: string, cause?: Error) {
+    super("internalError", message, cause);
   }
 }
