@@ -9,8 +9,12 @@ export class AppError extends Error {
 }
 
 export class RateLimitError extends AppError {
-  constructor(message: string, cause?: Error) {
-    super("rateLimitError", message, cause);
+  constructor(
+    message: string,
+    readonly limit?: number,
+    readonly resetTime?: Date,
+  ) {
+    super("rateLimitError", message);
   }
 }
 
