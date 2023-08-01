@@ -1,7 +1,7 @@
 import { type Response } from "express";
 import { UnauthorizedError } from "../../../core/error";
 import { uuidAuthMiddleware } from "../authMiddleware";
-import { type AuthRequest, type UuidAuthPayload } from "../../types";
+import { type UuidAuthRequest } from "../../types";
 
 const res = {
   status: jest.fn().mockReturnThis(),
@@ -17,7 +17,7 @@ describe("uuidAuthMiddleware", () => {
         headers: {
           authorization: `Bearer ${validToken}`,
         },
-      } as AuthRequest<UuidAuthPayload>;
+      } as UuidAuthRequest;
 
       uuidAuthMiddleware(validToken)(req, res, next);
 
@@ -32,7 +32,7 @@ describe("uuidAuthMiddleware", () => {
         headers: {
           authorization: `Bearer ${validToken}`,
         },
-      } as AuthRequest<UuidAuthPayload>;
+      } as UuidAuthRequest;
 
       uuidAuthMiddleware(validToken)(req, res, next);
 
@@ -46,7 +46,7 @@ describe("uuidAuthMiddleware", () => {
         headers: {
           authorization: undefined,
         },
-      } as AuthRequest<UuidAuthPayload>;
+      } as UuidAuthRequest;
 
       uuidAuthMiddleware("")(req, res, next);
 
@@ -60,7 +60,7 @@ describe("uuidAuthMiddleware", () => {
         headers: {
           authorization: "Basic 123",
         },
-      } as AuthRequest<UuidAuthPayload>;
+      } as UuidAuthRequest;
 
       uuidAuthMiddleware("")(req, res, next);
 
@@ -74,7 +74,7 @@ describe("uuidAuthMiddleware", () => {
         headers: {
           authorization: "Bearer invalid-token",
         },
-      } as AuthRequest<UuidAuthPayload>;
+      } as UuidAuthRequest;
 
       uuidAuthMiddleware("valid-token")(req, res, next);
 

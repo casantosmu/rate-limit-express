@@ -1,8 +1,8 @@
-import { type UuidAuthPayload, type AuthRequestHandler } from "../types";
+import { type UuidAuthRequestHandler } from "../types";
 import { UnauthorizedError } from "../../core/error";
 
 export const uuidAuthMiddleware =
-  (uuidToken: string): AuthRequestHandler<UuidAuthPayload> =>
+  (uuidToken: string): UuidAuthRequestHandler =>
   (req, _res, next) => {
     if (!req.headers.authorization) {
       next(new UnauthorizedError("No authorization token was found"));
