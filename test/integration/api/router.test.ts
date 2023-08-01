@@ -1,5 +1,14 @@
 import request from "../request";
 import { env } from "../../../src/configs/env";
+import { ioRedisClient } from "../../../src/compositionRoot";
+
+beforeAll(async () => {
+  await ioRedisClient.connect();
+});
+
+afterAll(async () => {
+  await ioRedisClient.close();
+});
 
 describe("GET /public", () => {
   it("responds with 200", async () => {

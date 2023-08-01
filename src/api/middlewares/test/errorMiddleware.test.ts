@@ -1,6 +1,6 @@
 import { type Request, type Response } from "express";
 import { errorMiddleware } from "../errorMiddleware";
-import { UnauthorizedError } from "../../../core/error";
+import { RateLimitError, UnauthorizedError } from "../../../core/error";
 
 const logger = {
   info: jest.fn(),
@@ -63,6 +63,29 @@ describe("errorMiddleware", () => {
       expect(res.json).toHaveBeenCalledWith({
         code: error.code,
         message: error.message,
+      });
+    });
+  });
+
+  describe("When called with RateLimitError", () => {
+    test("Should call response status with '429'", () => {
+      const error = new RateLimitError("message");
+
+      errorMiddleware(logger)(error, req, res, next);
+
+      expect(res.status).toHaveBeenCalledWith(429);
+    });
+
+    test("Should call response json with the error code, message, limit and reset time", () => {
+      const error = new RateLimitError("custom-message", 24, new Date());
+
+      errorMiddleware(logger)(error, req, res, next);
+
+      expect(res.json).toHaveBeenCalledWith({
+        code: error.code,
+        message: error.message,
+        limit: error.limit,
+        resetTime: error.resetTime,
       });
     });
   });

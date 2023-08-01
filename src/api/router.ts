@@ -1,9 +1,18 @@
 import { Router as expressRouter } from "express";
 import { getPublic, getProtected } from "./controllers";
-import { provideUuidAuthMiddleware } from "../compositionRoot";
+import {
+  provideIpRateLimitMiddleware,
+  provideUuidAuthMiddleware,
+  provideUuidRateLimitMiddleware,
+} from "../compositionRoot";
 
 export const router = expressRouter();
 
-router.get("/public", getPublic);
+router.get("/public", provideIpRateLimitMiddleware(), getPublic);
 
-router.get("/protected", provideUuidAuthMiddleware(), getProtected);
+router.get(
+  "/protected",
+  provideUuidAuthMiddleware(),
+  provideUuidRateLimitMiddleware(),
+  getProtected,
+);

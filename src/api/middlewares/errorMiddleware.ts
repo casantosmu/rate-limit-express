@@ -1,5 +1,5 @@
 import { type ErrorRequestHandler } from "express";
-import { UnauthorizedError } from "../../core/error";
+import { UnauthorizedError, RateLimitError } from "../../core/error";
 import { httpStatusCodes } from "../../lib/http/httpStatusCodes";
 import { type Logger } from "../../lib/logger/types";
 
@@ -12,6 +12,17 @@ export const errorMiddleware =
       res.status(httpStatusCodes.unauthorized).json({
         code: error.code,
         message: error.message,
+      });
+
+      return;
+    }
+
+    if (error instanceof RateLimitError) {
+      res.status(httpStatusCodes.tooManyRequests).json({
+        code: error.code,
+        message: error.message,
+        limit: error.limit,
+        resetTime: error.resetTime,
       });
 
       return;
