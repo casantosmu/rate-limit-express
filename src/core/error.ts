@@ -8,4 +8,8 @@ export class AppError extends Error {
   }
 }
 
-export class UnauthorizedError extends AppError {}
+export class UnauthorizedError extends AppError {
+  constructor(message: string, cause?: Error) {
+    super("unauthorizedError", message, cause);
+  }
+}
